@@ -1,7 +1,21 @@
-# Tauri + React + Typescript
+# これってなんのアプリなの
+- これはTauriというフレームワークを使用して制作したgitへのpushやcommitがGUIで簡単に出来るアプリケーションです。
 
-This template should help get you started developing with Tauri, React and Typescript in Vite.
+## てかTauriってなに
+- フロントエンドにTypeScriptやReactを使用して、バックエンドにRustを使用するデスクトップwebアプリケーション制作フレームワークです。
+- [公式ドキュメント][https://tauri.app/v1/guides/]
 
-## Recommended IDE Setup
+## どうやってGit操作してんの
+- GuthubAPIというAPIを使用しています。
+- [公式ドキュメント][https://docs.github.com/ja]
 
-- [VS Code](https://code.visualstudio.com/) + [Tauri](https://marketplace.visualstudio.com/items?itemName=tauri-apps.tauri-vscode) + [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer)
+## お前誰や
+- ニックネーム : **Rerurate514**
+- 所属　　　　 : 北の方の工学部学部1年生
+
+# 詳細ここ
+### author : Rerurate514
+### belong : toh
+### lang   : React, Rust
+
+# 使い方はこっち 作者PC雑魚過ぎてwebサーバ立ち上げられないため
