@@ -2,7 +2,7 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 mod logics;
-use logics::github_api::github_api::test_authentication_api;
+use logics::github_api::github_api_test::test_authentication_api;
 
 
 // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
