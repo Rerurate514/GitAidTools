@@ -25,9 +25,15 @@
 
 # ソースコードどこだよ
 ## フロントエンド(React, Typescript)
-- 描画　　　　　    -    ./src/main.tsx
-- コンポーネント    -    ./src/assets/components/
+- 描画
+>./src/main.tsx
+
+- コンポーネント
+>./src/assets/components/
 
 ## バックエンド(Rust)
-- main　　　　　    -    ./src-tauri/src/main.rs
-- modules　　　　　 -    ./src-tauri/src/logics/
+- main
+>./src-tauri/src/main.rs
+
+- modules
+>./src-tauri/src/logics/
