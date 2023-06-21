@@ -18,3 +18,16 @@
 
 # 使い方はこっち 
 ### 作者PC雑魚過ぎてwebサーバ立ち上げられないため
+- 
+- 
+- 
+- 
+
+# ソースコードどこだよ
+- フロントエンド(React, Typescript)
+> 描画　　　　　    -    ./src/main.tsx
+> コンポーネント    -    ./src/assets/components/
+
+- バックエンド(Rust)
+> main　　　　　    -    ./src-tauri/src/main.rs
+> modules　　　　　 -    ./src-tauri/src/logics/
