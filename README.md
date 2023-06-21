@@ -24,10 +24,10 @@
 - 
 
 # ソースコードどこだよ
-- フロントエンド(React, Typescript)
-> 描画　　　　　    -    ./src/main.tsx
-> コンポーネント    -    ./src/assets/components/
+## フロントエンド(React, Typescript)
+- 描画　　　　　    -    ./src/main.tsx
+- コンポーネント    -    ./src/assets/components/
 
-- バックエンド(Rust)
-> main　　　　　    -    ./src-tauri/src/main.rs
-> modules　　　　　 -    ./src-tauri/src/logics/
+## バックエンド(Rust)
+- main　　　　　    -    ./src-tauri/src/main.rs
+- modules　　　　　 -    ./src-tauri/src/logics/
