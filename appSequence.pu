@@ -1,0 +1,56 @@
+'alt + D でプレビュー
+
+@startuml
+title フロントエンドとバックエンドとoctokit.js(JSライブラリ)によるGithubAPIでの通信(リポジトリ操作編)
+
+participant 各描画コンポーネント.tsx #Aqua
+participant エントリポイント.tsx #Aqua
+
+participant バックエンド.rs
+database localDatabase
+
+participant octokit.jsを実行するtsファイル
+database Githubサーバ
+
+autonumber
+
+group リポジトリ情報初回取得時のみ
+    エントリポイント.tsx -> バックエンド.rs ++ : アクセストークンなどの\ngithubの認証情報
+    バックエンド.rs -> localDatabase : 認証情報登録
+    note left : 初回時に登録\n二回目以降はDBから取得
+end
+
+autonumber stop
+autonumber
+
+group リポジトリの2回目以降参照時
+    エントリポイント.tsx -> バックエンド.rs : 認証情報リクエスト
+    localDatabase -> バックエンド.rs : 認証情報送信
+end
+
+バックエンド.rs -> octokit.jsを実行するtsファイル ++ : githubの認証情報と\ntsファイル呼び出し
+note left : octkit.jsライブラリは\nJSかTSなので\nRust経由で呼び出す。
+
+ group ライブラリ操作
+    octokit.jsを実行するtsファイル -> Githubサーバ ++ : リクエスト
+    Githubサーバ -> octokit.jsを実行するtsファイル -- : ユーザの\nリポジトリ情報が\n入ったJsonファイル
+    end
+
+octokit.jsを実行するtsファイル -> バックエンド.rs -- : Jsonファイル送信
+
+バックエンド.rs --> バックエンド.rs : Jsonをバリデートする。
+
+group コントローラー操作
+    バックエンド.rs --> バックエンド.rs : コントローラーに\n情報を渡す。
+    note left : ControllerClass
+    バックエンド.rs -> 各描画コンポーネント.tsx : コンポーネントごとに描画する情報
+    バックエンド.rs -> localDatabase -- : リポジトリを\nJsonをもとに登録
+end
+
+==アーキテクチャ構造==
+
+note over 各描画コンポーネント.tsx, エントリポイント.tsx : VIEW
+note over バックエンド.rs, バックエンド.rs : CONTROLLER
+note over localDatabase, localDatabase : MODEL
+
+@enduml
