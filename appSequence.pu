@@ -1,7 +1,7 @@
 'alt + D でプレビュー
 
 @startuml
-title フロントエンドとバックエンドとoctokit.js(JSライブラリ)によるGithubAPIでの通信(リポジトリ操作編)
+title フロントエンドとバックエンドとoctocrab(Rustライブラリ)によるGithubAPIでの通信(リポジトリ操作編)
 
 participant 各描画コンポーネント.tsx #Aqua
 participant エントリポイント.tsx #Aqua
@@ -9,7 +9,6 @@ participant エントリポイント.tsx #Aqua
 participant バックエンド.rs
 database localDatabase
 
-participant octokit.jsを実行するtsファイル
 database Githubサーバ
 
 autonumber
@@ -28,17 +27,16 @@ group リポジトリの2回目以降参照時
     localDatabase -> バックエンド.rs : 認証情報送信
 end
 
-バックエンド.rs -> octokit.jsを実行するtsファイル ++ : githubの認証情報と\ntsファイル呼び出し
-note left : octkit.jsライブラリは\nJSかTSなので\nRust経由で呼び出す。
+group ライブラリ操作
+    バックエンド.rs -> バックエンド.rs ++ : octocrabの使用開始\nライフタイムstart
+    note left : octocrabは\nRustでOctokit.jsを\nラップしたもの。
 
- group ライブラリ操作
-    octokit.jsを実行するtsファイル -> Githubサーバ ++ : リクエスト
-    Githubサーバ -> octokit.jsを実行するtsファイル -- : ユーザの\nリポジトリ情報が\n入ったJsonファイル
-    end
+    バックエンド.rs -> Githubサーバ  : リクエスト
+    Githubサーバ -> バックエンド.rs -- : ユーザの\nリポジトリ情報が\n入ったJsonファイル
 
-octokit.jsを実行するtsファイル -> バックエンド.rs -- : Jsonファイル送信
+end 
 
-バックエンド.rs --> バックエンド.rs : Jsonをバリデートする。
+バックエンド.rs --> バックエンド.rs -- : Jsonをバリデートする。
 
 group コントローラー操作
     バックエンド.rs --> バックエンド.rs : コントローラーに\n情報を渡す。
