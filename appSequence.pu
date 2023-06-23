@@ -4,34 +4,23 @@
 title フロントエンドとバックエンドとoctocrab(Rustライブラリ)によるGithubAPIでの通信(リポジトリ操作編)
 
 participant 各描画コンポーネント.tsx #Aqua
-participant エントリポイント.tsx #Aqua
+participant エントリポイント #Aqua
 
 participant バックエンド.rs
-database localDatabase
 
 database Githubサーバ
+database localDatabase
 
 autonumber
 
-group リポジトリ情報初回取得時のみ
-    エントリポイント.tsx -> バックエンド.rs ++ : アクセストークンなどの\ngithubの認証情報
-    バックエンド.rs -> localDatabase : 認証情報登録
-    note left : 初回時に登録\n二回目以降はDBから取得
-end
+group ライブラリ操作 : octocrab
 
-autonumber stop
-autonumber
-
-group リポジトリの2回目以降参照時
-    エントリポイント.tsx -> バックエンド.rs : 認証情報リクエスト
-    localDatabase -> バックエンド.rs : 認証情報送信
-end
-
-group ライブラリ操作
-    バックエンド.rs -> バックエンド.rs ++ : octocrabの使用開始\nライフタイムstart
+    エントリポイント -> バックエンド.rs ++ : OAuth認証リクエスト
+    バックエンド.rs -> Githubサーバ ++ : OAuth認証リクエスト
+    Githubサーバ -> バックエンド.rs -- : アクセストークンなどの\n認証情報
     note left : octocrabは\nRustでOctokit.jsを\nラップしたもの。
 
-    バックエンド.rs -> Githubサーバ  : リクエスト
+    バックエンド.rs -> Githubサーバ ++ : リポジトリ情報リクエスト
     Githubサーバ -> バックエンド.rs -- : ユーザの\nリポジトリ情報が\n入ったJsonファイル
 
 end 
@@ -47,7 +36,7 @@ end
 
 ==アーキテクチャ構造==
 
-note over 各描画コンポーネント.tsx, エントリポイント.tsx : VIEW
+note over 各描画コンポーネント.tsx, エントリポイント : VIEW
 note over バックエンド.rs, バックエンド.rs : CONTROLLER
 note over localDatabase, localDatabase : MODEL
 

@@ -23,5 +23,5 @@ fn main() {
 
 #[tauri::command]
 fn test_authentication(url: &str){
-    test_authentication_api(url)
+    test_authentication_api(url);
 }
