@@ -2,7 +2,7 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 mod logics;
-use logics::github_api::github_api_test::test_authentication_api;
+use logics::github_api::github_api_auth::oauth_request_api;
 
 
 // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
@@ -15,13 +15,13 @@ fn main() {
     tauri::Builder::default()
         .invoke_handler(tauri::generate_handler![
             greet,
-            test_authentication
+            oauth_request
             ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
 
 #[tauri::command]
-fn test_authentication(url: &str){
-    test_authentication_api(url);
+async fn oauth_request(app: tauri::AppHandle){
+    oauth_request_api(app);
 }
