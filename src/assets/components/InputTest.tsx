@@ -5,8 +5,8 @@ const TestAPI = () => {
     const [url, setUrl] = useState('')
     const [msg, setMsg] = useState('')
 
-    async function testAuthentication() {
-        setUrl(await invoke("test_authentication", { url }))
+    async function testAuth() {
+        setUrl(await invoke("test_auth", {  }))
     }
 
     return(
@@ -14,7 +14,7 @@ const TestAPI = () => {
             <form
                 onSubmit={(e) => {
                     e.preventDefault();
-                    testAuthentication();
+                    testAuth();
                 }}
             >
                 <h3>ここにRepositoryのURL</h3>
