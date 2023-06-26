@@ -1,10 +1,10 @@
 pub mod github_api_auth{
-    use reqwest::Request;
+    use tauri::http;
+    use url::Url;
     use tauri::WindowBuilder;
     use tauri::WindowUrl;
     use tauri::AppHandle;
-
-
+    use tauri::http::ResponseBuilder;
     use octocrab::Octocrab;
 
     const CLIENT_ID : &str = "13148b29f0040e5807ac";
@@ -25,9 +25,15 @@ pub mod github_api_auth{
         )
         .title("OAuth認証")
         .on_web_resource_request( |request, response| {
-            let url = request.uri().query().unwrap_or("");
+            let url_str = request.uri();
+            let url = Url::parse(url_str).expect("not find Query");
+            let query = url.query().expect("dont find query.");
 
-
+            *response = ResponseBuilder::new()
+                            .status(200)
+                            .header("Content-Type", "text/plain")
+                            .body(query.as_bytes().to_vec())
+                            .unwrap();
 
         })
         .build()

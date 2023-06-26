@@ -22,7 +22,7 @@ tokio = { version = "1.28.2", features = ["full"] }
 
 octocrab = "0.25.1"
 
-url = "2.2.0"
+url = "2.4.0"
 
 
 [features]
