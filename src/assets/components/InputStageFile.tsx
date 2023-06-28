@@ -4,9 +4,10 @@ import { useState } from "react";
 
 export const InputAddFile = () => {
     const [path, setPath] = useState("");
+    const [result, setResult] = useState("");
 
     async function git_add_cmd() {
-        await invoke("git_add_cmd",{ path })
+        setResult(await invoke("git_add_cmd",{ path }))
     }
 
     return(
@@ -22,6 +23,15 @@ export const InputAddFile = () => {
                     <button type="submit" style={{marginLeft: '8px'}}>add</button>
                 </form>
             </div>
+            <div style={{margin: '8px', padding: '8px',
+            
+                                    borderWidth: '4px',
+                                    borderColor: '#CCCCCC',
+                                    borderStyle: 'solid',
+                                    borderRadius: '7px'}}>
+                <h3>実行結果</h3>
+                <h4>{result}</h4>
+            </div>  
         </div>
     )
 }
