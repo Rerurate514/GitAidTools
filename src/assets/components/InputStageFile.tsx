@@ -1,5 +1,6 @@
 import { invoke } from "@tauri-apps/api";
 import { useState } from "react";
+import ShowResultMsg from "./ShowResultMsg"
 
 
 export const InputAddFile = () => {
@@ -23,15 +24,7 @@ export const InputAddFile = () => {
                     <button type="submit" style={{marginLeft: '8px'}}>add</button>
                 </form>
             </div>
-            <div style={{margin: '8px', padding: '8px',
-            
-                                    borderWidth: '4px',
-                                    borderColor: '#CCCCCC',
-                                    borderStyle: 'solid',
-                                    borderRadius: '7px'}}>
-                <h3>実行結果</h3>
-                <h4>{result}</h4>
-            </div>  
+            <ShowResultMsg resultMsg={result}/>
         </div>
     )
 }

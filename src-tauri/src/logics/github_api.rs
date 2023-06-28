@@ -34,7 +34,6 @@ pub mod github_api_auth{
                             .header("Content-Type", "text/plain")
                             .body(query.as_bytes().to_vec())
                             .unwrap();
-
         })
         .build()
         .unwrap();
