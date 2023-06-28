@@ -1,34 +1,52 @@
-use tauri::api::process::Command;
-
 pub mod git_command_line{
-    use std::process::Command;
+    use std::process::{Command, Output};
 
     pub struct output_msg{
         result: bool,
         detail: String
     }
 
-    fn expect_msg(_msg: &str) -> &str{
-        &format!("Error in git_command_line mod ::: detail => "{},_msg)
+    fn output_result_aug(_msg: output_msg) -> String {
+        if _msg.result { format!("SUCCESS, {}",_msg.detail) }
+        else { format!("FAILED, {}",_msg.detail) }
     }
 
-    pub fn git_add(_path: &str) -> output_msg {
-        let cmd = Command::new("git")
-                            .arg(["add",_path])
-                            .output()
-                            .unwrap();
+    fn expect_msg(_msg: &str) -> String{
+        let format_msg = format!("Error in git_command_line mod ::: detail => {}",_msg);
+        print!("{}",format_msg);
+        format_msg
+    }
 
-        if cmd.status().success() {
-            output_msg{
-                result : bool = true,
-                detail : String = String::from_utf8_lossy(&cmd.stdout),
+    pub fn git_add(_path: &str) -> String {
+        match std::env::current_dir() {
+            Ok(x) => {
+                let cmd = Command::new("git")
+                    .current_dir(x)
+                    .arg("add")
+                    .arg(_path)
+                    .output()
+                    .unwrap();
+
+                    output_result(cmd)
+            }
+            Err(_x) => {
+                expect_msg("failed to fetch currentDirectry")
             }
         }
+    }
+
+    fn output_result(_cmd: Output) -> String{
+        if _cmd.status.success() {
+            output_result_aug(output_msg{
+                result : true,
+                detail : String::from_utf8_lossy(&_cmd.stdout).to_string(),
+            })
+        }
         else {
-            output_msg{
-                result : bool = false,
-                detail : String = String::from_utf8_lossy(&cmd.stdout),
-            }
+            output_result_aug(output_msg{
+                result : false,
+                detail : String::from_utf8_lossy(&_cmd.stdout).to_string(),
+            })
         }
     }
 }
