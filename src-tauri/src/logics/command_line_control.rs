@@ -17,6 +17,21 @@ pub mod git_command_line{
         format_msg
     }
 
+    fn output_result(_cmd: Output) -> String{
+        if _cmd.status.success() {
+            output_result_aug(output_msg{
+                result : true,
+                detail : String::from_utf8_lossy(&_cmd.stdout).to_string(),
+            })
+        }
+        else {
+            output_result_aug(output_msg{
+                result : false,
+                detail : String::from_utf8_lossy(&_cmd.stderr).to_string(),
+            })
+        }
+    }
+
     pub fn git_add(_path: &str) -> String {
         match std::env::current_dir() {
             Ok(x) => {
@@ -35,18 +50,22 @@ pub mod git_command_line{
         }
     }
 
-    fn output_result(_cmd: Output) -> String{
-        if _cmd.status.success() {
-            output_result_aug(output_msg{
-                result : true,
-                detail : String::from_utf8_lossy(&_cmd.stdout).to_string(),
-            })
+    pub fn git_commit(_msg: &str) -> String {
+        match std::env::current_dir() {
+            Ok(x) => {
+                let cmd = Command::new("git")
+                    .current_dir(x)
+                    .arg("commit")
+                    .arg("-m")
+                    .arg(_msg)
+                    .output()
+                    .unwrap();
+
+                    output_result(cmd)
+            }
+            Err(_x) => {
+                expect_msg("failed to fetch currentDirectry")
+            }
         }
-        else {
-            output_result_aug(output_msg{
-                result : false,
-                detail : String::from_utf8_lossy(&_cmd.stdout).to_string(),
-            })
-        }
-    }
+    }    
 }
