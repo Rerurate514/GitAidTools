@@ -8,7 +8,7 @@ export const CommitMsg = () => {
 
     async function git_commit_cmd() {
         console.log({commitMsg})
-        setResult(await invoke("git_commit_cmd",{ commitMsg }))
+        setResult(await invoke("git_commit_cmd",{ msg : commitMsg }))
     }
 
     return(

@@ -7,7 +7,7 @@ export const InputAddFile = () => {
     const [result, setResult] = useState("");
 
     async function git_add_cmd() {
-        setResult(await invoke("git_add_cmd",{ path }))
+        setResult(await invoke("git_add_cmd",{ path : path }))
     }
 
     return(
