@@ -2,13 +2,8 @@ import { invoke } from "@tauri-apps/api";
 import { useState } from "react";
 import "./componentsStyles.css";
 
-const [commitMsg, setCommitMsg] = useState("")
-
-export const SendCommitMsg = () =>{
-    return commitMsg
-}
-
 export const CommitMsg = () => {
+    const [commitMsg, setCommitMsg] = useState("")
     const [result, setResult] = useState("");
 
     async function git_commit_cmd() {
@@ -25,7 +20,7 @@ export const CommitMsg = () => {
                     e.preventDefault(),
                     git_commit_cmd()
                 }}>
-                    <input style={{width: '95%'}} onChange={(e) => {setCommitMsg(e.currentTarget.value)}} placeholder="Enter add file"></input>
+                    <input style={{width: '95%'}} onChange={(e) => {setCommitMsg(e.currentTarget.value)}} placeholder="Enter commit message"></input>
                 </form>
             </div>
         </div>

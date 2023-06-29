@@ -3,13 +3,8 @@ import { useState } from "react";
 import "./componentsStyles.css";
 import "./ExeuteCommandButton"
 
-const [path, setPath] = useState("");
-
-export const SendPath = () => {
-    return path
-}
-
 export const InputAddFile = () => {
+    const [path, setPath] = useState("");
     const [result, setResult] = useState("");
 
     async function git_add_cmd() {

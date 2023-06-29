@@ -1,14 +1,9 @@
-３．import { invoke } from "@tauri-apps/api"
+import { invoke } from "@tauri-apps/api"
 import { useState } from "react"
 import "./componentsStyles.css";
 
-const [branch, setBranch] = useState("")
-
-export const SendBranch = () => {
-    return branch
-}
-
 export const PushBranch = () => {
+    const [branch, setBranch] = useState("")
     const [result, setResult] = useState("")
 
     async function git_push_cmd(){

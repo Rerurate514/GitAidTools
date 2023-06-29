@@ -1,9 +1,6 @@
 import { invoke } from "@tauri-apps/api"
 import { useState } from "react"
 import "./componentsStyles.css"
-import { SendPath } from "./InputStageFile"
-import { SendCommitMsg } from "./InputCommitMsg"
-import { SendBranch } from "./PushBranch"
 import ShowResultMsg from "./ShowResultMsg"
 
 type Command = {
@@ -23,9 +20,9 @@ const ExecuteCommandButton = () => {
 
     function updateCommnad(){
         const str : Command = {
-            addFilePath : SendPath(),
-            commitMsg : SendCommitMsg(),
-            selectBranch : SendBranch()
+            addFilePath : "SendPath(),",
+            commitMsg : "SendCommitMsg(),",
+            selectBranch : "SendBranch()"
         }
         setCommnad(str)
     }
@@ -38,9 +35,9 @@ const ExecuteCommandButton = () => {
     return(
         <div>
             <form>
-                <button onClick={startExeCommand}>実行</button>
-                <ShowResultMsg resultMsg={result}/>
+                <button onClick={startExeCommand} style={{width: '100%', marginTop: '32px'}}>実行</button>
             </form>
+            <ShowResultMsg resultMsg={result}/>
         </div>
     )
 }
