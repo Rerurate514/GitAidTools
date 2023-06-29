@@ -12,7 +12,7 @@ export const PushBranch = () => {
 
     return(
         <div>
-            <h3>３．このボタンを押すとリモートリポジトリにプッシュされます。</h3>
+            <h3>３．ブランチを設定してください</h3>
             <form
             onSubmit={(e) => {
                 e.preventDefault(),
