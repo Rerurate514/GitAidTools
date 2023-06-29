@@ -1,8 +1,14 @@
-import { invoke } from "@tauri-apps/api"
+３．import { invoke } from "@tauri-apps/api"
 import { useState } from "react"
-import ShowResultMsg from "./ShowResultMsg"
+import "./componentsStyles.css";
 
-const PushBranch = () => {
+const [branch, setBranch] = useState("")
+
+export const SendBranch = () => {
+    return branch
+}
+
+export const PushBranch = () => {
     const [result, setResult] = useState("")
 
     async function git_push_cmd(){
@@ -11,17 +17,14 @@ const PushBranch = () => {
 
     return(
         <div>
-            <h3>このボタンを押すとリモートリポジトリにプッシュされます。</h3>
+            <h3>３．このボタンを押すとリモートリポジトリにプッシュされます。</h3>
             <form
             onSubmit={(e) => {
                 e.preventDefault(),
                 git_push_cmd()
             }}>
-                <button type="submit">PUSH</button>
+                <input style={{width: '95%'}} onChange={(e) => {setBranch(e.currentTarget.value)}} placeholder="Enter branch"></input>
             </form>
-            <ShowResultMsg resultMsg={result}/>
         </div>
     )
 }
-
-export default PushBranch

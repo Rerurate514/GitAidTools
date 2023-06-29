@@ -1,9 +1,15 @@
 import { invoke } from "@tauri-apps/api";
 import { useState } from "react";
-import ShowResultMsg from "./ShowResultMsg"
+import "./componentsStyles.css";
+import "./ExeuteCommandButton"
+
+const [path, setPath] = useState("");
+
+export const SendPath = () => {
+    return path
+}
 
 export const InputAddFile = () => {
-    const [path, setPath] = useState("");
     const [result, setResult] = useState("");
 
     async function git_add_cmd() {
@@ -13,17 +19,15 @@ export const InputAddFile = () => {
     return(
         <div>
             <h3>１．ここにはステージングしたいファイルかディレクトリの絶対パスを入力してください。</h3>
-            <div style={{display: 'flex'}}>
+            <div style={{display: 'inline'}}>
                 <form
                 onSubmit={(e) => {
                     e.preventDefault(),
                     git_add_cmd()
                 }}>
-                    <input style={{width: '650px'}} onChange={(e) => {setPath(e.currentTarget.value)}} placeholder="Enter add file"></input>
-                    <button type="submit" style={{marginLeft: '8px'}}>追加</button>
+                    <input style={{width: '95%'}} onChange={(e) => {setPath(e.currentTarget.value)}} placeholder="Enter add file"></input>
                 </form>
             </div>
-            <ShowResultMsg resultMsg={result}/>
         </div>
     )
 }

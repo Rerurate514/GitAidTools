@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap');
 
-.scroll {
-
+.word-wrap {
+    word-wrap: break-word;
+    white-space: normal;
 }

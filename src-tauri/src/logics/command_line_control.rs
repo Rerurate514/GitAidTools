@@ -69,5 +69,24 @@ pub mod git_command_line{
         }
     }
 
+    pub fn git_push(branch: &str) -> String {
+        match std::env::current_dir() {
+            Ok(x) => {
+                let cmd = Command::new("git")
+                    .current_dir(x)
+                    .arg("push")
+                    .arg("origin")
+                    .arg(branch)
+                    .output()
+                    .unwrap();
+
+                    output_result(cmd)
+            }
+            Err(_x) => {
+                expect_msg("failed to fetch currentDirectry")
+            }
+        }
+    }
+
     
 }

@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
+import "./componentsStyles.css";
 
 type ResultMsgProps = {
     resultMsg : string
 }
 
-export const ShowResultMsg = (props: ResultMsgProps) => {
+export const ShowResultMsg = (resultProps: ResultMsgProps) => {
     const [result, setResult] = useState("")
-    const { resultMsg } = props
+    const { resultMsg } = resultProps
 
     useEffect(() => {
         setResult(resultMsg)
@@ -20,9 +21,9 @@ export const ShowResultMsg = (props: ResultMsgProps) => {
                                     borderWidth: '4px',
                                     borderColor: '#CCCCCC',
                                     borderStyle: 'solid',
-                                    borderRadius: '7px'}}>
+                                    borderRadius: '5px'}}>
                 <h3>実行結果</h3>
-                <h4 style={{ color: '#00FF00', fontFamily: 'JetBrains Mono', fontStyle: 'normal' }}>{result}</h4>
+                <h4 className="word-wrap" style={{ color: '#00FF00', fontFamily: 'JetBrains Mono', fontStyle: 'normal' }}>{result}</h4>
             </div>
         </div>
     )
