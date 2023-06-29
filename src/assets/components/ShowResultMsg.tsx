@@ -14,7 +14,7 @@ export const ShowResultMsg = (props: ResultMsgProps) => {
 
     return(
         <div>
-            <div style={{marginTop: '16px', paddingLeft: '16px',
+            <div style={{marginTop: '16px',marginBottom: '16px', paddingLeft: '16px',
                                     
                                     background: '#000000',
                                     borderWidth: '4px',

@@ -16,9 +16,9 @@ fn greet(name: &str) -> String {
 fn main() {
     tauri::Builder::default()
         .invoke_handler(tauri::generate_handler![
-            greet,
             oauth_request,
-            git_add_cmd
+            git_add_cmd,
+            git_commit_cmd,
             ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
@@ -32,4 +32,10 @@ async fn oauth_request(app: tauri::AppHandle){
 #[tauri::command]
 fn git_add_cmd(_path: &str) -> String{
     git_add(_path)
+}
+
+#[tauri::command]
+fn git_commit_cmd(_msg: &str) -> String{
+    println!("sommit = {}",_msg);
+    git_commit(_msg)
 }

@@ -1,12 +1,12 @@
 pub mod git_command_line{
     use std::process::{Command, Output};
 
-    pub struct output_msg{
+    pub struct OutputMsg{
         result: bool,
         detail: String
     }
 
-    fn output_result_aug(_msg: output_msg) -> String {
+    fn output_result_aug(_msg: OutputMsg) -> String {
         if _msg.result { format!("成功") }
         else { format!("失敗 ::: 理由 => {}",_msg.detail) }
     }
@@ -19,13 +19,13 @@ pub mod git_command_line{
 
     fn output_result(_cmd: Output) -> String{
         if _cmd.status.success() {
-            output_result_aug(output_msg{
+            output_result_aug(OutputMsg {
                 result : true,
                 detail : String::from_utf8_lossy(&_cmd.stdout).to_string(),
             })
         }
         else {
-            output_result_aug(output_msg{
+            output_result_aug(OutputMsg{
                 result : false,
                 detail : String::from_utf8_lossy(&_cmd.stderr).to_string(),
             })

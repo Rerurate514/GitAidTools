@@ -2,7 +2,6 @@ import { invoke } from "@tauri-apps/api";
 import { useState } from "react";
 import ShowResultMsg from "./ShowResultMsg"
 
-
 export const InputAddFile = () => {
     const [path, setPath] = useState("");
     const [result, setResult] = useState("");
@@ -21,7 +20,7 @@ export const InputAddFile = () => {
                     git_add_cmd()
                 }}>
                     <input style={{width: '650px'}} onChange={(e) => {setPath(e.currentTarget.value)}} placeholder="Enter add file"></input>
-                    <button type="submit" style={{marginLeft: '8px'}}>add</button>
+                    <button type="submit" style={{marginLeft: '8px'}}>追加</button>
                 </form>
             </div>
             <ShowResultMsg resultMsg={result}/>
