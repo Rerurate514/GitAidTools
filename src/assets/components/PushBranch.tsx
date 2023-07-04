@@ -1,25 +1,27 @@
-import { invoke } from "@tauri-apps/api"
-import { useState } from "react"
+import { useState, useContext } from "react"
 import "./componentsStyles.css";
+import { CommandContext } from "./SaveCommandContext";
 
 export const PushBranch = () => {
     const [branch, setBranch] = useState("")
-    const [result, setResult] = useState("")
+    const { state, dispatch } = useContext(CommandContext);
 
-    async function git_push_cmd(){
-        setResult(await invoke("git_push_cmd",{}))
+    async function context_git_branch_cmd() {
+        console.log(`"branch = " + ${branch}`)
+        dispatch({ type: "branch", payload: branch})
     }
 
     return(
         <div>
-            <h3>３．ブランチを設定してください</h3>
-            <form
-            onSubmit={(e) => {
-                e.preventDefault(),
-                git_push_cmd()
-            }}>
-                <input style={{width: '95%'}} onChange={(e) => {setBranch(e.currentTarget.value)}} placeholder="Enter branch"></input>
-            </form>
+            <h3>ブランチを設定してください</h3>
+            <input
+                 style={{width: '95%'}} 
+                 onChange={(e) => {
+                    setBranch(e.currentTarget.value)
+                    context_git_branch_cmd()
+                }} 
+                 placeholder="Enter branch">
+            </input>
         </div>
     )
 }

@@ -4,7 +4,6 @@
 mod logics;
 use logics::command_line_control::git_command_line::*;
 
-
 // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
 #[tauri::command]
 fn greet(name: &str) -> String {
@@ -16,7 +15,8 @@ fn main() {
         .invoke_handler(tauri::generate_handler![
             git_add_cmd,
             git_commit_cmd,
-            git_push_cmd
+            git_push_cmd,
+            execute_git_cmd
             ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
@@ -33,6 +33,12 @@ fn git_commit_cmd(_msg: &str) -> String{
 }
 
 #[tauri::command]
-fn git_push_cmd() -> String {
+fn git_push_cmd(_branch: String) -> String {
     git_push("main")
+}
+
+#[tauri::command]
+fn execute_git_cmd(_command: SetCommand) -> String{
+    println!("{:?}",_command);
+    execute_git(_command)
 }

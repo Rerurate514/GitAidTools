@@ -1,5 +1,15 @@
 pub mod git_command_line{
     use std::process::{Command, Output};
+    use serde::Deserialize;
+    use serde::Serialize;
+
+    #[derive(Debug)]
+    #[derive(Deserialize,Serialize)]
+    pub struct SetCommand{
+        addFilePath : String,
+        commitMsg : String,
+        selectBranch : String
+    }
 
     pub struct OutputMsg{
         result: bool,
@@ -30,6 +40,10 @@ pub mod git_command_line{
                 detail : String::from_utf8_lossy(&_cmd.stderr).to_string(),
             })
         }
+    }
+
+    pub fn execute_git(_command: SetCommand) -> String{
+        "".to_string()
     }
 
     pub fn git_add(_path: &str) -> String {
@@ -69,18 +83,20 @@ pub mod git_command_line{
         }
     }
 
-    pub fn git_push(branch: &str) -> String {
+    pub fn git_push(_branch: &'static str) -> String {
         match std::env::current_dir() {
             Ok(x) => {
-                let cmd = Command::new("git")
-                    .current_dir(x)
-                    .arg("push")
-                    .arg("origin")
-                    .arg(branch)
-                    .output()
-                    .unwrap();
-
-                    output_result(cmd)
+                let handle = std::thread::spawn(move || {
+                    Command::new("git")
+                                    .current_dir(x)
+                                    .arg("push")
+                                    .arg("origin")
+                                    .arg(_branch)
+                                    .output()
+                                    .unwrap()
+                });
+                let cmd = handle.join().unwrap();
+                output_result(cmd)
             }
             Err(_x) => {
                 expect_msg("failed to fetch currentDirectry")

@@ -1,42 +1,64 @@
 import { invoke } from "@tauri-apps/api"
-import { useState } from "react"
+import React, { useState, useContext } from "react"
 import "./componentsStyles.css"
 import ShowResultMsg from "./ShowResultMsg"
+import { CommandContext } from "./SaveCommandContext"
 
-type Command = {
-    addFilePath : String
-    commitMsg : String
-    selectBranch : String
+
+type SetCommand = {
+    addFilePath? : String
+    commitMsg? : String
+    selectBranch? : String
+}
+
+type StateType = {
+    stateCommand : SetCommand
 }
 
 const ExecuteCommandButton = () => {
-    const [command, setCommnad] = useState<Command>()
+    const [command, setCommand] = useState<StateType>({
+        stateCommand : {
+            addFilePath : "",
+            commitMsg : "",
+            selectBranch : ""
+        }
+    })
+    
     const [result, setResult] = useState("")
+    const { state, dispatch } = useContext(CommandContext);
 
-    function startExeCommand(){
-        updateCommnad()
-        execute_git_cmd()
+    async function startExeCommand(){
+        await updateCommand()
+        await execute_git_cmd()
     }
 
-    function updateCommnad(){
-        const str : Command = {
-            addFilePath : "SendPath(),",
-            commitMsg : "SendCommitMsg(),",
-            selectBranch : "SendBranch()"
-        }
-        setCommnad(str)
+    async function updateCommand(){
+        const str : StateType = {
+            stateCommand: {
+            addFilePath : state.addFilePath,
+            commitMsg : state.commitMsg,
+            selectBranch : state.selectBranch
+        }}
+
+        console.log(`path = ${state.addFilePath}`)
+        console.log(`coms = ${state.commitMsg}`)
+        console.log(`bran = ${state.selectBranch}`)
+
+        setCommand(str)
     }
 
     async function execute_git_cmd(){
-        const returnResult : String = await invoke("execute_git_cmd",{ command })
-        setResult(`${result} + "\n\n" + ${returnResult}`)
-    }
+        const returnResult: string = await invoke("execute_git_cmd", {command : {
+            addFilePath: command.stateCommand.addFilePath,
+            commitMsg: command.stateCommand.commitMsg,
+            selectBranch: command.stateCommand.selectBranch
+          }});
+        setResult(`${result}` + `\n\n` + `${returnResult}`)
+    } 
 
     return(
         <div>
-            <form>
-                <button onClick={startExeCommand} style={{width: '100%', marginTop: '32px'}}>実行</button>
-            </form>
+            <button onClick={startExeCommand}  style={{width: '100%', marginTop: '32px'}}>実行</button>
             <ShowResultMsg resultMsg={result}/>
         </div>
     )
