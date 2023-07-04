@@ -1,5 +1,6 @@
 pub mod git_command_line{
     use std::process::{Command, Output};
+    use std::result;
     use serde::Deserialize;
     use serde::Serialize;
 
@@ -43,7 +44,21 @@ pub mod git_command_line{
     }
 
     pub fn execute_git(_command: SetCommand) -> String{
-        "".to_string()
+        let mut result = String::new();
+
+        let result_temp = git_add(&_command.addFilePath);
+        if result_temp != "成功" { return result_temp; }
+        else { result = format!("{}\n{}",result,result_temp) }
+
+        let result_temp = git_commit(&_command.commitMsg);
+        if result_temp != "成功" { return result_temp; }
+        else { result = format!("{}\n{}",result,result_temp) }
+
+        let result_temp = git_push(&_command.selectBranch);
+        if result_temp != "成功" { return result_temp; }
+        else { result = format!("{}\n{}",result,result_temp) }
+        
+        result
     }
 
     pub fn git_add(_path: &str) -> String {
@@ -83,7 +98,8 @@ pub mod git_command_line{
         }
     }
 
-    pub fn git_push(_branch: &'static str) -> String {
+    pub fn git_push(_branch: &str) -> String {
+        let branch : String = _branch.to_string();
         match std::env::current_dir() {
             Ok(x) => {
                 let handle = std::thread::spawn(move || {
@@ -91,7 +107,7 @@ pub mod git_command_line{
                                     .current_dir(x)
                                     .arg("push")
                                     .arg("origin")
-                                    .arg(_branch)
+                                    .arg(branch)
                                     .output()
                                     .unwrap()
                 });
