@@ -28,6 +28,7 @@ const ExecuteCommandButton = () => {
     const { state, dispatch } = useContext(CommandContext);
 
     async function startExeCommand(){
+
         await updateCommand()
         await execute_git_cmd()
     }
@@ -48,13 +49,25 @@ const ExecuteCommandButton = () => {
     }
 
     async function execute_git_cmd(){
-        const returnResult: string = await invoke("execute_git_cmd", {command : {
-            addFilePath: command.stateCommand.addFilePath,
-            commitMsg: command.stateCommand.commitMsg,
-            selectBranch: command.stateCommand.selectBranch
-          }});
-        setResult(`${result}` + `\n\n` + `${returnResult}`)
+        git_add_cmd(state.addFilePath != null ? state.addFilePath : "")
+        git_commit_cmd(state.commitMsg != null ? state.commitMsg : "")
+        git_push_cmd(state.selectBranch != null ? state.selectBranch : "")
     } 
+
+    async function git_add_cmd(_path : String) {
+        const returnResult : String = await invoke("git_add_cmd", { path : _path } )
+        setResult(`${result}` + "<br><br>" + `${returnResult}`)
+    }
+
+    async function git_commit_cmd(_msg : String) {
+        const returnResult : String = await invoke("git_commmit_cmd", { commitMsg : _msg } )
+        setResult(`${result}` + "<br><br>" + `${returnResult}`)
+    }
+
+    async function git_push_cmd(_branch : String) {
+        const returnResult : String = await invoke("git_push_cmd", { branch : _branch } )
+        setResult(`${result}` + "<br><br>" + `${returnResult}`)
+    }
 
     return(
         <div>

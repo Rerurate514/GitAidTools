@@ -1,6 +1,5 @@
 pub mod git_command_line{
     use std::process::{Command, Output};
-    use std::result;
     use serde::Deserialize;
     use serde::Serialize;
 
@@ -18,7 +17,7 @@ pub mod git_command_line{
     }
 
     fn output_result_aug(_msg: OutputMsg) -> String {
-        if _msg.result { format!("成功") }
+        if _msg.result { format!("成功 ::: 詳細 => {}",_msg.detail) }
         else { format!("失敗 ::: 理由 => {}",_msg.detail) }
     }
 
@@ -41,24 +40,6 @@ pub mod git_command_line{
                 detail : String::from_utf8_lossy(&_cmd.stderr).to_string(),
             })
         }
-    }
-
-    pub fn execute_git(_command: SetCommand) -> String{
-        let mut result = String::new();
-
-        let result_temp = git_add(&_command.addFilePath);
-        if result_temp != "成功" { return result_temp; }
-        else { result = format!("{}\n{}",result,result_temp) }
-
-        let result_temp = git_commit(&_command.commitMsg);
-        if result_temp != "成功" { return result_temp; }
-        else { result = format!("{}\n{}",result,result_temp) }
-
-        let result_temp = git_push(&_command.selectBranch);
-        if result_temp != "成功" { return result_temp; }
-        else { result = format!("{}\n{}",result,result_temp) }
-        
-        result
     }
 
     pub fn git_add(_path: &str) -> String {
@@ -119,6 +100,4 @@ pub mod git_command_line{
             }
         }
     }
-
-    
 }

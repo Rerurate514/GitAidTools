@@ -7,7 +7,7 @@ export const PushBranch = () => {
     const { state, dispatch } = useContext(CommandContext);
 
     async function context_git_branch_cmd() {
-        console.log(`"branch = " + ${branch}`)
+        console.log(`branch = ${branch}`)
         dispatch({ type: "branch", payload: branch})
     }
 

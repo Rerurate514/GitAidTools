@@ -7,8 +7,8 @@ export const InputAddFile = () => {
     const [path, setPath] = useState("");
     const { state, dispatch } = useContext(CommandContext);
 
-    async function context_git_add_cmd() {
-        console.log(`"path = " + ${path}`)
+    function context_git_add_cmd() {
+        console.log(`path = ${path}`)
         dispatch({ type: "path", payload: path})
     }
 
@@ -16,14 +16,14 @@ export const InputAddFile = () => {
         <div>
             <h3>ここにはステージングしたいファイルかディレクトリの絶対パスを入力してください。</h3>
             <div style={{display: 'inline'}}>
-            <input
-                 style={{width: '95%'}} 
-                 onChange={(e) => {
-                    setPath(e.currentTarget.value)
-                    context_git_add_cmd()
-                }} 
-                 placeholder="Enter adding file path">
-            </input>
+                <input
+                    style={{width: '95%'}} 
+                    onChange={(e) => {
+                        setPath(e.currentTarget.value)
+                        context_git_add_cmd()
+                    }} 
+                    placeholder="Enter adding file path">
+                </input>
             </div>
         </div>
     )

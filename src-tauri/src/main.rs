@@ -16,7 +16,6 @@ fn main() {
             git_add_cmd,
             git_commit_cmd,
             git_push_cmd,
-            execute_git_cmd
             ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
@@ -33,12 +32,6 @@ fn git_commit_cmd(_msg: &str) -> String{
 }
 
 #[tauri::command]
-fn git_push_cmd(_branch: String) -> String {
-    git_push("main")
-}
-
-#[tauri::command]
-fn execute_git_cmd(_command: SetCommand) -> String{
-    println!("{:?}",_command);
-    execute_git(_command)
+fn git_push_cmd(_branch: &str) -> String {
+    git_push(_branch)
 }

@@ -7,7 +7,7 @@ export const CommitMsg = () => {
     const { state, dispatch } = useContext(CommandContext);
 
     async function context_git_commit_cmd() {
-        console.log(`"commitMsg = " + ${commitMsg}`)
+        console.log(`commitMsg = ${commitMsg}`)
         dispatch({ type: "commitMsg", payload: commitMsg})
     }
 
@@ -21,7 +21,7 @@ export const CommitMsg = () => {
                     setCommitMsg(e.currentTarget.value)
                     context_git_commit_cmd()
                 }} 
-                 placeholder="Enter commit message">
+                placeholder="Enter commit message">
             </input>
             </div>
         </div>
