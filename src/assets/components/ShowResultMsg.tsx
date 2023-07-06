@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import parse from "html-react-parser"
 import "./componentsStyles.css";
 
 type ResultMsgProps = {
@@ -6,10 +7,11 @@ type ResultMsgProps = {
 }
 
 export const ShowResultMsg = (resultProps: ResultMsgProps) => {
-    const [result, setResult] = useState("")
+    const [result, setResult] = useState<String>("")
     const { resultMsg } = resultProps
 
     useEffect(() => {
+        console.log(resultMsg)
         setResult(resultMsg)
     })
 
@@ -23,7 +25,9 @@ export const ShowResultMsg = (resultProps: ResultMsgProps) => {
                                     borderStyle: 'solid',
                                     borderRadius: '5px'}}>
                 <h3>実行結果</h3>
-                <h4 className="word-wrap" style={{ color: '#00FF00', fontFamily: 'JetBrains Mono', fontStyle: 'normal' }}>{result}</h4>
+                <div className="word-wrap" style={{ color: '#00FF00', fontFamily: 'JetBrains Mono', fontStyle: 'normal' }}>
+                    {parse(result as string)}
+                </div>
             </div>
         </div>
     )
