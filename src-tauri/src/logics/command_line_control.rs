@@ -17,7 +17,7 @@ pub mod git_command_line{
     }
 
     fn output_result_aug(_msg: OutputMsg) -> String {
-        if _msg.result { format!("成功 ::: 詳細 => {}",_msg.detail) }
+        if _msg.result { format!("成功") }
         else { format!("失敗 ::: 理由 => {}",_msg.detail) }
     }
 
