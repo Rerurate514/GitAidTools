@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import parse from "html-react-parser"
 import "./componentsStyles.css";
+import { y } from "@tauri-apps/api/path-c062430b";
 
 type ResultMsgProps = {
     resultMsg : string
@@ -23,10 +24,19 @@ export const ShowResultMsg = (resultProps: ResultMsgProps) => {
                                     borderWidth: '4px',
                                     borderColor: '#CCCCCC',
                                     borderStyle: 'solid',
-                                    borderRadius: '5px'}}>
-                <h3>実行結果</h3>
-                <div className="word-wrap" style={{ color: '#00FF00', fontFamily: 'JetBrains Mono', fontStyle: 'normal' }}>
-                    {parse(result as string)}
+                                    borderRadius: '5px',
+                                    }}>
+                <div className="word-wrap" style={{ 
+                    marginBottom: '16px',
+                    color: '#00FF00', 
+                    fontFamily: 'JetBrains Mono', 
+                    fontStyle: 'normal',
+
+                    }}>
+                        <div style={{ overflowY: 'scroll', height: '100px'}}>
+                            <h3 style={{color: '#FFFFFF'}}>実行結果</h3>
+                            {parse(result as string)}
+                        </div>
                 </div>
             </div>
         </div>
